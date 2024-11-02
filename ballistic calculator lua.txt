@@ -1,0 +1,47 @@
+function onTick()
+
+    
+    targetX = input.getNumber(1) 
+	targetY = input.getNumber(2) 
+	targetZ = input.getNumber(3) 
+
+	
+	selfX = input.getNumber(4) 
+	selfY = input.getNumber(5) 
+	selfZ = input.getNumber(6) 
+	
+
+	
+    relativeX = targetX - selfX 
+	relativeY = targetY - selfY 
+	relativeZ = targetZ - selfZ 
+	
+	
+	
+	selfTilt = (input.getNumber(8)) 
+	selfPitch = selfTilt * 360
+
+	selfBearing = input.getNumber(7)
+    selfYaw = (selfBearing * 360) + 90 
+	
+
+	
+    relativeDst = ((relativeX ^ 2) + (relativeY ^ 2)) ^ 0.5 
+	
+	targetYaw = math.deg(math.atan(relativeY, relativeX)) 
+	targetPit = math.deg(math.atan(relativeZ, relativeDst)) 
+
+	
+	
+	relativePit = (targetPit - selfPitch) % 360 
+	if relativePit &gt; 180 then relativePit = relativePit - 360 end 
+	
+	relativeYaw = (targetYaw - selfYaw) % 360 
+	if relativeYaw &gt; 180 then relativeYaw = relativeYaw - 360 end 
+	
+	
+	
+	output.setNumber(1, relativeDst) 
+    output.setNumber(2, relativeYaw) 
+	output.setNumber(3, relativePit) 
+end
